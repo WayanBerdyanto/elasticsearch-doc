@@ -8,8 +8,9 @@ filebeat.inputs:
       - container: ~
 
 processors:
-  - add_cloud_metadata:
-    host: "unix:///var/run/docker.sock"
+  - add_docker_metadata:
+      host: "unix:///var/run/docker.sock"
+  - add_host_metadata: {}
   - drop_event:
     when:
       not:
