@@ -80,6 +80,32 @@ services:
       interval: 10s
       timeout: 10s
       retries: 30
+  
+  filebeat:
+    filebeat:
+    image: docker.elastic.co/beats/filebeat:${ES_LOCAL_VERSION}
+    container_name: ${FILEBEAT_LOCAL_CONTAINER_NAME}
+    user: root
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /root/apps/logs:/var/log/laravel:ro
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=${ES_LOCAL_PASSWORD}
+    command:
+      [
+        "filebeat",
+        "-e",
+        "-c",
+        "/usr/share/filebeat/filebeat.yml",
+        "--strict.perms=false",
+      ]
 
 volumes:
   dev-elasticsearch:
