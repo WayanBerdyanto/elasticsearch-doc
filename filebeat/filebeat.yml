@@ -12,19 +12,19 @@ processors:
       host: "unix:///var/run/docker.sock"
   - add_host_metadata: {}
   - drop_event:
-    when:
-      not:
-        or:
-          - equals:
-              container.labels.log_enabled: "true"
-          # Drop For Container Name
-          - equals:
-              container.name: ${ALLOW_LOG_FROM_CONTAINER_1}
-          - equals:
-              container.name: ${ALLOW_LOG_FROM_CONTAINER_2}
-          - equals:
-              container.name: ${ALLOW_LOG_FROM_CONTAINER_3}
-  
+      when:
+        not:
+          or:
+            - equals:
+                container.labels.log_enabled: "true"
+            # Drop For Container Name
+            - equals:
+                container.name: ${ALLOW_LOG_FROM_CONTAINER_1}
+            - equals:
+                container.name: ${ALLOW_LOG_FROM_CONTAINER_2}
+            - equals:
+                container.name: ${ALLOW_LOG_FROM_CONTAINER_3}
+    
   - decode_json_fields:
       fields: ["message"]
       target: ""
