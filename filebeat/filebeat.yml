@@ -40,16 +40,16 @@ processors:
         - "2026-01-21T10:11:22Z"
 
   - add_fields:
-    target: ""
-    fields:
-      service: "unknown-service"
-    when:
-      not:
-        has_fields: ["service"]
+      target: ""
+      fields:
+        service: "unknown-service"
+      when:
+        not:
+          has_fields: ["service"]
 
   - drop_fields:
-    fields: ["agent", "ecs", "input", "log", "host", "container.id"]
-    ignore_missing: true
+      fields: ["agent", "ecs", "input", "log", "host", "container.id"]
+      ignore_missing: true
 
 setup.template.name: "logs"
 setup.template.pattern: "logs-*"
