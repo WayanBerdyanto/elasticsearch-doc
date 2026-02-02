@@ -82,7 +82,7 @@ services:
       retries: 30
   
   filebeat:
-    filebeat:
+    filebeat: filebeat_local
     image: docker.elastic.co/beats/filebeat:${ES_LOCAL_VERSION}
     container_name: ${FILEBEAT_LOCAL_CONTAINER_NAME}
     user: root
